@@ -19,10 +19,10 @@ class NeuralNetwork:
         for layer in self.layers:
             inputs = layer.forward(inputs)
 
-        return iunputs
+        return inputs
 
     def backward(self, grad: Tensor) -> Tensor:
-        for layer in reversed(self.layer):
+        for layer in reversed(self.layers):
             grad = layer.backward(grad)
 
         return grad
