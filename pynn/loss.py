@@ -9,6 +9,7 @@ value of the loss function.
 """
 
 from pynn.tensor import Tensor
+from pynn.utils import size
 
 import numpy as np
 
@@ -32,3 +33,18 @@ class Loss:
         """
 
         raise NotImplementedError
+
+class MSE(Loss):
+    """
+    Means Square Error (MSE) loss function.
+    """
+
+    def loss(self, predicted: Tensor, exact: Tensor) -> float:
+        n = size(predicted, exact)
+
+        return np.sum((predicted - exact)**2) / n
+
+    def grad(self, predicted: Tensor, exact: Tensor) -> float:
+        size(predicted, exact)
+
+        return 2 * (predicted - exact)
