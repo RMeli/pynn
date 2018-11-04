@@ -8,7 +8,7 @@ a number of hidden layers and an output layer.
 from pynn.tensor import Tensor
 from pynn.layer import Layer
 
-from typing import Sequence
+from typing import Sequence, Iterator, Tuple
 
 class NeuralNetwork:
 
@@ -27,4 +27,10 @@ class NeuralNetwork:
 
         return grad
 
-    
+    def params_and_grads(self) -> Iterator[Tuple[Tensor, Tensor]]:
+        for layer in self.layers:
+            for name, param in layer.params.items():
+                grad = layer.grads[name]
+
+                yield param, grad
+
