@@ -17,7 +17,7 @@ class SGD(Optimizer):
     Stochastic Gradient Descent (SGD) optimizer.
     """
 
-    def __init__(self, lr: float) -> None:
+    def __init__(self, lr: float = 0.01) -> None:
         self.lr = lr
 
     def step(self, nn: NeuralNetwork) -> None:
