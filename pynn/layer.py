@@ -8,6 +8,7 @@ the gradients backward (backward pass).
 """
 
 from pynn.tensor import Tensor
+from pynn.utils import tanh, tanh_derivative
 
 from typing import Dict, Callable
 import numpy as np
@@ -84,3 +85,18 @@ class Activation(Layer):
 
         self.f = f
         self.df = df
+
+    def forward(self, inputs: Tensor) -> Tensor:
+        # Save copy of inoputs for backpropagation
+        self.inputs = inputs
+
+        return self.f(inputs)
+
+    def backward(self, grad: Tensor) -> Tensor:
+        return self.df(self.inputs) * grad
+
+
+class Tanh(Activation):
+
+    def __init__(self):
+        super().__init__(tanh, tanh_derivative)
