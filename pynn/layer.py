@@ -9,8 +9,9 @@ the gradients backward (backward pass).
 
 from pynn.tensor import Tensor
 
-from typing import Dict
+from typing import Dict, Callable
 import numpy as np
+
 
 class Layer():
 
@@ -30,6 +31,7 @@ class Layer():
         Propagate the gradient backward through the layer.
         """
         raise NotImplementedError
+
 
 class Linear(Layer):
     """
@@ -63,3 +65,22 @@ class Linear(Layer):
 
         # Gradient with respect to the input
         return np.dot(grad, self.params["w"].T)
+
+
+# Definition of a function taking a tensor and returning a tensor for type hints
+F = Callable[[Tensor], Tensor]
+
+
+class Activation(Layer):
+    """
+    Activation layer.
+
+    An activation layer apply a (non-linear) function to its imputs element
+    by element.
+    """
+
+    def __init__(self, f: F, df: F) -> None:
+        super().__init__()
+
+        self.f = f
+        self.df = df
