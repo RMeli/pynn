@@ -15,21 +15,21 @@ import numpy as np
 
 class Loss:
 
-    def loss(self, predicted: Tensor, exact: Tensor) -> float:
+    def loss(self, predicted: Tensor, target: Tensor) -> float:
         """
         Loss function.
 
-        Computes the loss given the predicted and exact values.
+        Computes the loss given the predicted and target values.
         """
         
         raise NotImplementedError
 
-    def grad(self, predicted: Tensor, exact: Tensor) -> Tensor:
+    def grad(self, predicted: Tensor, target: Tensor) -> Tensor:
         """
         Gradient of the loss function.
 
         Computes the graduent of the loss function given the predicted and
-        exact values. 
+        target values. 
         """
 
         raise NotImplementedError
@@ -39,12 +39,12 @@ class MSE(Loss):
     Means Square Error (MSE) loss function.
     """
 
-    def loss(self, predicted: Tensor, exact: Tensor) -> float:
-        n = size(predicted, exact)
+    def loss(self, predicted: Tensor, target: Tensor) -> float:
+        n = size(predicted, target)
 
-        return np.sum((predicted - exact)**2) / n
+        return np.sum((predicted - target)**2) / n
 
-    def grad(self, predicted: Tensor, exact: Tensor) -> float:
-        size(predicted, exact)
+    def grad(self, predicted: Tensor, target: Tensor) -> float:
+        size(predicted, target)
 
-        return 2 * (predicted - exact)
+        return 2 * (predicted - target)
