@@ -1,15 +1,12 @@
 # Python
-__pycache__/
+__pycache__
 *.py[cod]
-*$py.class
+
+# pytest
+.pytest_cache
 
 # mypy
-.mypy*
-
-# Distribution / Packaging
-
-# Sphinx documentation
-docs/_build/
+.mypy_cache
 
 # macOS
 .DS_Store
