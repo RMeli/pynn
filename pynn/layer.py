@@ -9,12 +9,14 @@ the gradients backward (backward pass).
 
 from pynn.tensor import Tensor
 
+from typing import Dict
 import numpy as np
 
 class Layer():
 
     def __init__(self) -> None:
-        pass
+        self.params: Dict[str, Tensor] = {}
+        self.grads: Dict[str, Tensor] = {}
 
     def forward(self, inputs: Tensor) -> Tensor:
         """
@@ -28,3 +30,36 @@ class Layer():
         Propagate the gradient backward through the layer.
         """
         raise NotImplementedError
+
+class Linear(Layer):
+    """
+    Linear layer.
+
+    A linear layer propagates the inputs forward via a linear function.
+    """
+
+    def __init__(self, input_size: int, output_size: int) -> None:
+        super().__init__()
+
+        self.params["w"] = np.random.rand(input_size, output_size)
+        self.params["b"] = np.random.rand(output_size)
+
+    def forward(self, inputs: Tensor) -> Tensor:
+        """
+        Propagate the inputs forward via a linear function:
+            outputs = inputs @ w + b
+        """
+        # Save copy of inputs for backpropagation
+        self.inputs = inputs
+        
+        return np.dot(inputs, self.params["w"]) + self.params["b"]
+
+    def backward(self, grad: Tensor) -> Tensor:
+        # Gradient with respect to w
+        self.grads["w"] = np.dot(self.inputs.T, grad)
+
+        # Gradient with respect to b
+        self.grads["b"] = np.sum(grad, axis=0)
+
+        # Gradient with respect to the input
+        return np.dot(grad, self.params["w"].T)
