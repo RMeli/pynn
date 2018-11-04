@@ -1,0 +1,6 @@
+numpy
+
+mypy
+pytest
+pytest-cov
+codecov
