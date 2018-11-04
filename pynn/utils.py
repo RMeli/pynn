@@ -1,5 +1,7 @@
 from pynn.tensor import Tensor
 
+import numpy as np
+
 def size(*args: Tensor):
     if not len(args):
         raise ValueError
@@ -11,3 +13,9 @@ def size(*args: Tensor):
             raise ValueError
 
     return n
+
+def tanh(x : Tensor) -> Tensor:
+    return np.tanh(x)
+
+def tanh_derivative(x: Tensor) -> Tensor:
+    return 1. - tanh(x)**2

@@ -1,4 +1,4 @@
-from pynn.utils import size
+from pynn.utils import size, tanh, tanh_derivative
 
 import numpy as np
 import pytest
@@ -29,3 +29,14 @@ def test_size(n: int = 10):
 
     assert size(a, b, c, d) == n
 
+def test_tanh():
+
+    assert tanh(0) == pytest.approx(0)
+    assert tanh(100) == pytest.approx(1)
+    assert tanh(-100) == pytest.approx(-1)
+
+def test__tanh_derivative():
+
+    assert tanh_derivative(0) == pytest.approx(1)
+    assert tanh_derivative(100) == pytest.approx(0)
+    assert tanh_derivative(-100) == pytest.approx(0)
