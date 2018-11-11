@@ -8,7 +8,7 @@ the gradients backward (backward pass).
 """
 
 from pynn.tensor import Tensor
-from pynn.utils import tanh, tanh_derivative
+from pynn.utils import tanh, tanh_derivative, softplus, sigmoid
 
 from typing import Dict, Callable
 import numpy as np
@@ -97,6 +97,19 @@ class Activation(Layer):
 
 
 class Tanh(Activation):
+    """
+    tanh activation function.
+    """
 
     def __init__(self):
         super().__init__(tanh, tanh_derivative)
+
+class SoftPlus(Activation):
+    """
+    Softplus activation function.
+
+    The softplus activation function is a smooth approximation of the ReLU activation function.
+    """
+
+    def __init__(self):
+        super().__init__(softplus, sigmoid)
