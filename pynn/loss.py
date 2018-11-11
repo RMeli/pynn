@@ -28,7 +28,7 @@ class Loss:
         """
         Gradient of the loss function.
 
-        Computes the graduent of the loss function given the predicted and
+        Computes the gradient of the loss function given the predicted and
         target values. 
         """
 

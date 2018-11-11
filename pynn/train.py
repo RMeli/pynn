@@ -16,7 +16,7 @@ def train(nn: NeuralNetwork,
           loss: Loss = MSE(),
           optimizer: Optimizer = SGD()) -> None:
     """
-    Train neuronal network on the given inputs and targets (trainig set).
+    Train neuronal network on the given inputs and targets (training set).
     """
 
     for epoch in range(num_epochs):

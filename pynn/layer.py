@@ -1,7 +1,7 @@
 """
 Layer of the neuronal network.
 
-A neuronal networks is composed of multiple layers (imput layer, hidden layers
+A neuronal networks is composed of multiple layers (input layer, hidden layers
 and output layer).
 Each layer has to propagate its inputs forward (forward pass) and propagate
 the gradients backward (backward pass).
@@ -76,7 +76,7 @@ class Activation(Layer):
     """
     Activation layer.
 
-    An activation layer apply a (non-linear) function to its imputs element
+    An activation layer apply a (non-linear) function to its inputs element
     by element.
     """
 
@@ -87,7 +87,7 @@ class Activation(Layer):
         self.df = df
 
     def forward(self, inputs: Tensor) -> Tensor:
-        # Save copy of inoputs for backpropagation
+        # Save copy of inputs for backpropagation
         self.inputs = inputs
 
         return self.f(inputs)
@@ -99,6 +99,10 @@ class Activation(Layer):
 class Tanh(Activation):
     """
     tanh activation function.
+
+
+    Propagate the inputs forward via a tanh function:
+        outputs = tanh(inputs)
     """
 
     def __init__(self):
@@ -107,6 +111,9 @@ class Tanh(Activation):
 class SoftPlus(Activation):
     """
     Softplus activation function.
+
+    Propagate the inputs forward via a tanh function:
+        outputs = softplus(inputs) = log(1 + exp(inputs))
 
     The softplus activation function is a smooth approximation of the ReLU activation function.
     """
