@@ -1,4 +1,4 @@
-from pynn.utils import size, tanh, tanh_derivative
+from pynn.utils import size, tanh, tanh_derivative, softplus, sigmoid
 
 import numpy as np
 import pytest
@@ -40,3 +40,13 @@ def test__tanh_derivative():
     assert tanh_derivative(0) == pytest.approx(1)
     assert tanh_derivative(100) == pytest.approx(0)
     assert tanh_derivative(-100) == pytest.approx(0)
+
+def test_softplus():
+    assert softplus(0) == pytest.approx(np.log(2))
+    assert softplus(-100) == pytest.approx(0)
+    assert softplus(100) == pytest.approx(100)
+
+def test_sigmoid():
+    assert sigmoid(0) == pytest.approx(0.5)
+    assert sigmoid(-100) == pytest.approx(0)
+    assert sigmoid(100) == pytest.approx(1)
