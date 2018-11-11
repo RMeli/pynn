@@ -1,5 +1,7 @@
 numpy
 
+scikit-learn
+
 mypy
 pytest
 pytest-cov
