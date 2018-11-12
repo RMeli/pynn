@@ -21,6 +21,7 @@ def train(nn: NeuralNetwork,
 
     for epoch in range(num_epochs):
         epoch_loss: float = 0
+        epoch_accuracy: float = 0
 
         # Iterate over data in batches
         for batch in iterator(inputs, targets):
@@ -37,6 +38,8 @@ def train(nn: NeuralNetwork,
             # Change neural network parameters to reduce the loss
             optimizer.step(nn)
 
-        print(epoch, epoch_loss)
+        if epoch % (num_epochs / 10) == 0:
+            print("\n========== Epoch", epoch, "==========")
+            print("Loss: ", epoch_loss)
 
 
