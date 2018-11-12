@@ -21,7 +21,6 @@ def train(nn: NeuralNetwork,
 
     for epoch in range(num_epochs):
         epoch_loss: float = 0
-        epoch_accuracy: float = 0
 
         # Iterate over data in batches
         for batch in iterator(inputs, targets):
@@ -30,7 +29,7 @@ def train(nn: NeuralNetwork,
             
             # Computation of loss
             epoch_loss += loss.loss(predicted, batch.targets)
-            
+
             # Backpropagation
             grad = loss.grad(predicted, batch.targets)
             nn.backward(grad)
