@@ -77,7 +77,7 @@ def test_backpropagation_tanh_tanh():
     )
 
 
-def test_backpropagation_tanh_tanh_grad():
+def test_backpropagation_tanh_tanh_grad2():
     """
     f(x) = tanh( tanh(x) )
     f'(x) = tanh'( tanh(x) ) * tanh(x)
