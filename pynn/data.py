@@ -12,6 +12,7 @@ from typing import Iterator, NamedTuple
 # NamedTupled defining a batch of inputs and targets for training
 Batch = NamedTuple("Batch", [("inputs", Tensor), ("targets", Tensor)])
 
+
 class DataIterator:
     """
     Data iterator.
@@ -19,6 +20,7 @@ class DataIterator:
 
     def __call__(self, inputs: Tensor, target: Tensor) -> Iterator[Batch]:
         raise NotImplementedError
+
 
 class BatchIterator(DataIterator):
     """

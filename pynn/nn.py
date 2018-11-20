@@ -10,8 +10,8 @@ from pynn.layer import Layer
 
 from typing import Sequence, Iterator, Tuple
 
-class NeuralNetwork:
 
+class NeuralNetwork:
     def __init__(self, layers: Sequence[Layer]) -> None:
         self.layers = layers
 
@@ -30,7 +30,6 @@ class NeuralNetwork:
         """
         return self.forward(inputs)
 
-
     def backward(self, grad: Tensor) -> Tensor:
         """
         Backpropagation.
@@ -46,4 +45,3 @@ class NeuralNetwork:
                 grad = layer.grads[name]
 
                 yield param, grad
-

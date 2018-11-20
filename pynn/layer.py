@@ -14,8 +14,7 @@ from typing import Dict, Callable
 import numpy as np
 
 
-class Layer():
-
+class Layer:
     def __init__(self) -> None:
         self.params: Dict[str, Tensor] = {}
         self.grads: Dict[str, Tensor] = {}
@@ -54,7 +53,7 @@ class Linear(Layer):
         """
         # Save copy of inputs for backpropagation
         self.inputs = inputs
-        
+
         return np.dot(inputs, self.params["w"]) + self.params["b"]
 
     def backward(self, grad: Tensor) -> Tensor:
@@ -107,6 +106,7 @@ class Tanh(Activation):
 
     def __init__(self):
         super().__init__(tanh, tanh_derivative)
+
 
 class SoftPlus(Activation):
     """

@@ -52,21 +52,21 @@ def test_linear_backward_1d():
 
 def test_linear_backward():
     pass
-    
+
 
 def test_activation_forward():
     A = Activation(np.sin, np.cos)
 
-    x = np.linspace(0., 4. * np.pi, 100)
+    x = np.linspace(0.0, 4.0 * np.pi, 100)
     y = np.sin(x)
-    
+
     assert np.allclose(A.forward(x), y)
-    
+
 
 def test_activation_backward():
     A = Activation(np.sin, np.cos)
 
-    x = np.linspace(0., 4. * np.pi, 100)
+    x = np.linspace(0.0, 4.0 * np.pi, 100)
     dy = np.cos(x)
     grad = np.ones(x.size)
 
@@ -89,7 +89,7 @@ def test_tanh_backward():
     A = Tanh()
 
     x = np.linspace(-10, 10, 100)
-    dy = 1. - np.tanh(x)**2
+    dy = 1.0 - np.tanh(x) ** 2
     grad = np.ones(x.size)
 
     # The forward pass is needed to store the inputs used by the backward pass

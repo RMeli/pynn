@@ -7,10 +7,11 @@ training in order to minimise the loss.
 
 from pynn.nn import NeuralNetwork
 
-class Optimizer():
 
+class Optimizer:
     def step(self, nn: NeuralNetwork) -> None:
         raise NotImplementedError
+
 
 class SGD(Optimizer):
     """

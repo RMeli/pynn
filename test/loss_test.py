@@ -3,6 +3,7 @@ from pynn.loss import Loss, MSE
 import numpy as np
 import pytest
 
+
 def test_loss(n: int = 10):
 
     L = Loss()
@@ -16,6 +17,7 @@ def test_loss(n: int = 10):
     with pytest.raises(NotImplementedError):
         g = L.grad(p, e)
 
+
 def test_mse_loss(n: int = 10):
     L = MSE()
 
@@ -25,6 +27,7 @@ def test_mse_loss(n: int = 10):
     l = L.loss(p, e)
 
     assert l == pytest.approx(1)
+
 
 def test_mse_grad(n: int = 10):
     L = MSE()

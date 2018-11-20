@@ -8,13 +8,16 @@ from pynn.loss import Loss, MSE
 from pynn.optim import Optimizer, SGD
 from pynn.data import DataIterator, BatchIterator
 
-def train(nn: NeuralNetwork, 
-          inputs: Tensor, 
-          targets: Tensor,
-          num_epochs: int = 5000,
-          iterator: DataIterator = BatchIterator(),
-          loss: Loss = MSE(),
-          optimizer: Optimizer = SGD()) -> None:
+
+def train(
+    nn: NeuralNetwork,
+    inputs: Tensor,
+    targets: Tensor,
+    num_epochs: int = 5000,
+    iterator: DataIterator = BatchIterator(),
+    loss: Loss = MSE(),
+    optimizer: Optimizer = SGD(),
+) -> None:
     """
     Train neuronal network on the given inputs and targets (training set).
     """
@@ -26,7 +29,7 @@ def train(nn: NeuralNetwork,
         for batch in iterator(inputs, targets):
             # Forward propagation (prediction)
             predicted = nn.forward(batch.inputs)
-            
+
             # Computation of loss
             epoch_loss += loss.loss(predicted, batch.targets)
 
@@ -40,5 +43,3 @@ def train(nn: NeuralNetwork,
         if epoch % (num_epochs / 10) == 0:
             print("\n========== Epoch", epoch, "==========")
             print("Loss: ", epoch_loss)
-
-

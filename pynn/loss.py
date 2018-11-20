@@ -13,15 +13,15 @@ from pynn.utils import size
 
 import numpy as np
 
-class Loss:
 
+class Loss:
     def loss(self, predicted: Tensor, target: Tensor) -> float:
         """
         Loss function.
 
         Computes the loss given the predicted and target values.
         """
-        
+
         raise NotImplementedError
 
     def grad(self, predicted: Tensor, target: Tensor) -> Tensor:
@@ -34,6 +34,7 @@ class Loss:
 
         raise NotImplementedError
 
+
 class MSE(Loss):
     """
     Means Square Error (MSE) loss function.
@@ -42,7 +43,7 @@ class MSE(Loss):
     def loss(self, predicted: Tensor, target: Tensor) -> float:
         n = size(predicted, target)
 
-        return np.sum((predicted - target)**2) / n
+        return np.sum((predicted - target) ** 2) / n
 
     def grad(self, predicted: Tensor, target: Tensor) -> float:
         size(predicted, target)

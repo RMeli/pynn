@@ -8,25 +8,13 @@ from pynn.layer import Linear, Tanh
 
 import numpy as np
 
-inputs = np.array([
-    [0, 0],
-    [1, 0],
-    [0, 1],
-    [1, 1]
-])
+inputs = np.array([[0, 0], [1, 0], [0, 1], [1, 1]])
 
-targets = np.array([
-    [1, 0],
-    [0, 1],
-    [0, 1],
-    [1, 0]
-])
+targets = np.array([[1, 0], [0, 1], [0, 1], [1, 0]])
 
-nn = NeuralNetwork([
-    Linear(input_size = 2, output_size = 2),
-    Tanh(),
-    Linear(input_size = 2, output_size = 2),
-])
+nn = NeuralNetwork(
+    [Linear(input_size=2, output_size=2), Tanh(), Linear(input_size=2, output_size=2)]
+)
 
 train(nn, inputs, targets)
 
