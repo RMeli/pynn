@@ -16,12 +16,25 @@ class NeuralNetwork:
         self.layers = layers
 
     def forward(self, inputs: Tensor) -> Tensor:
+        """
+        Forward pass.
+        """
         for layer in self.layers:
             inputs = layer.forward(inputs)
 
         return inputs
 
+    def __call__(self, inputs: Tensor) -> Tensor:
+        """
+        Make a NeutalNetwork object callable for forward pass.
+        """
+        return self.forward(inputs)
+
+
     def backward(self, grad: Tensor) -> Tensor:
+        """
+        Backpropagation.
+        """
         for layer in reversed(self.layers):
             grad = layer.backward(grad)
 

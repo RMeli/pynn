@@ -31,5 +31,5 @@ nn = NeuralNetwork([
 train(nn, inputs, targets)
 
 for i, t in zip(inputs, targets):
-    predicted = nn.forward(i)
+    predicted = nn(i)
     print(i, np.around(predicted).astype(int), t)
