@@ -10,7 +10,7 @@ from pynn.data import DataIterator, BatchIterator
 
 def train(nn: NeuralNetwork, 
           inputs: Tensor, 
-          targets: Tensor, 
+          targets: Tensor,
           num_epochs: int = 5000,
           iterator: DataIterator = BatchIterator(),
           loss: Loss = MSE(),
