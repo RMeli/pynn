@@ -38,6 +38,7 @@ def test_feed_forward_not_callable():
     assert nn(np.array([1]))[0] == pytest.approx(-1)
     assert nn(np.array([0]))[0] == pytest.approx(1)
 
+
 def test_backpropagation_linear_tanh():
     """
     f(x) = tanh( w * x + b )
@@ -70,6 +71,7 @@ def test_backpropagation_tanh_tanh():
 
     grad: float = 1
     assert nn.backward(grad)[0] == pytest.approx((1 - np.tanh(np.tanh(0.5))**2) * (1 - np.tanh(0.5)**2))
+
 
 def test_backpropagation_tanh_tanh_grad():
     """
