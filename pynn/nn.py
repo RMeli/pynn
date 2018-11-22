@@ -45,3 +45,11 @@ class NeuralNetwork:
                 grad = layer.grads[name]
 
                 yield param, grad
+
+    def __repr__(self) -> str:
+        repr = f"{self.__class__.__name__}([\n"
+
+        for layer in self.layers:
+            repr += f"\t{layer!r},\n"
+
+        return repr + "])"

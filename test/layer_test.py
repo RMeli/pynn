@@ -54,6 +54,12 @@ def test_linear_backward():
     pass
 
 
+def test_linear_repr():
+    L = Linear(3, 4)
+
+    assert repr(L) == "Linear(3, 4)"
+
+
 def test_activation_forward():
     A = Activation(np.sin, np.cos)
 
@@ -96,3 +102,9 @@ def test_tanh_backward():
     A.forward(x)
 
     assert np.allclose(A.backward(grad), dy)
+
+
+def test_tanh_repr():
+    A = Tanh()
+
+    assert repr(A) == "Tanh()"

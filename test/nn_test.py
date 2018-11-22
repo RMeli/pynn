@@ -93,3 +93,11 @@ def test_backpropagation_tanh_tanh_grad2():
     assert nn.backward(grad)[0] == pytest.approx(
         grad * (1 - np.tanh(np.tanh(0.5)) ** 2) * (1 - np.tanh(0.5) ** 2)
     )
+
+
+def test_repr():
+    nn: NeuralNetwork = NeuralNetwork([Linear(10, 5), Tanh(), Linear(5, 2)])
+
+    assert (
+        repr(nn) == "NeuralNetwork([\n\tLinear(10, 5),\n\tTanh(),\n\tLinear(5, 2),\n])"
+    )

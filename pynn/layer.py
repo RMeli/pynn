@@ -43,6 +43,9 @@ class Linear(Layer):
     def __init__(self, input_size: int, output_size: int) -> None:
         super().__init__()
 
+        self.input_size = input_size
+        self.output_size = output_size
+
         self.params["w"] = np.random.rand(input_size, output_size)
         self.params["b"] = np.random.rand(output_size)
 
@@ -65,6 +68,9 @@ class Linear(Layer):
 
         # Gradient with respect to the input
         return np.dot(grad, self.params["w"].T)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.input_size}, {self.output_size})"
 
 
 # Definition of a function taking a tensor and returning a tensor for type hints
@@ -93,6 +99,9 @@ class Activation(Layer):
 
     def backward(self, grad: Tensor) -> Tensor:
         return self.df(self.inputs) * grad
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}()"
 
 
 class Tanh(Activation):
