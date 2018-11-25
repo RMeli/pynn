@@ -6,20 +6,23 @@ Inputs are feed into the neural network in batches.
 
 from pynn.tensor import Tensor
 
-import numpy as np
+from abc import ABC, abstractmethod
 from typing import Iterator, NamedTuple
+
+import numpy as np
 
 # NamedTupled defining a batch of inputs and targets for training
 Batch = NamedTuple("Batch", [("inputs", Tensor), ("targets", Tensor)])
 
 
-class DataIterator:
+class DataIterator(ABC):
     """
     Data iterator.
     """
 
+    @abstractmethod
     def __call__(self, inputs: Tensor, target: Tensor) -> Iterator[Batch]:
-        raise NotImplementedError
+        pass
 
 
 class BatchIterator(DataIterator):

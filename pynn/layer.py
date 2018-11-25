@@ -10,27 +10,31 @@ the gradients backward (backward pass).
 from pynn.tensor import Tensor
 from pynn.utils import tanh, tanh_derivative, softplus, sigmoid
 
+from abc import ABC, abstractmethod
 from typing import Dict, Callable
+
 import numpy as np
 
 
-class Layer:
+class Layer(ABC):
     def __init__(self) -> None:
         self.params: Dict[str, Tensor] = {}
         self.grads: Dict[str, Tensor] = {}
 
+    @abstractmethod
     def forward(self, inputs: Tensor) -> Tensor:
         """
         Compute the output of the layer corresponding to the given input, i.e.
         propagate the inputs forward through the layer.
         """
-        raise NotImplementedError
+        pass
 
+    @abstractmethod
     def backward(self, grad: Tensor) -> Tensor:
         """
         Propagate the gradient backward through the layer.
         """
-        raise NotImplementedError
+        pass
 
 
 class Linear(Layer):

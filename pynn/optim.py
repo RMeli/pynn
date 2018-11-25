@@ -7,10 +7,13 @@ training in order to minimise the loss.
 
 from pynn.nn import NeuralNetwork
 
+from abc import ABC, abstractmethod
 
-class Optimizer:
+
+class Optimizer(ABC):
+    @abstractmethod
     def step(self, nn: NeuralNetwork) -> None:
-        raise NotImplementedError
+        pass
 
 
 class SGD(Optimizer):

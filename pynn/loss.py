@@ -11,19 +11,22 @@ value of the loss function.
 from pynn.tensor import Tensor
 from pynn.utils import size
 
+from abc import ABC, abstractmethod
+
 import numpy as np
 
 
-class Loss:
+class Loss(ABC):
+    @abstractmethod
     def loss(self, predicted: Tensor, target: Tensor) -> float:
         """
         Loss function.
 
         Computes the loss given the predicted and target values.
         """
+        pass
 
-        raise NotImplementedError
-
+    @abstractmethod
     def grad(self, predicted: Tensor, target: Tensor) -> Tensor:
         """
         Gradient of the loss function.
@@ -31,8 +34,7 @@ class Loss:
         Computes the gradient of the loss function given the predicted and
         target values. 
         """
-
-        raise NotImplementedError
+        pass
 
 
 class MSE(Loss):

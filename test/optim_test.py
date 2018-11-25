@@ -1,24 +1,17 @@
 from pynn.optim import Optimizer, SGD
 
-from pynn.layer import Layer
+from pynn.layer import Linear
 from pynn.nn import NeuralNetwork
 
 import numpy as np
 import pytest
 
 
-def test_optimizer_step():
-
-    opt = Optimizer()
-
-    with pytest.raises(NotImplementedError):
-        opt.step(NeuralNetwork([]))
-
-
 def test_SGD_step():
     opt = SGD(1)
 
-    layer = Layer()
+    # Dummy linear layer
+    layer = Linear(0, 0)
 
     # Assign parameters and corresponding gradients associated to the layer
     layer.params = {"p": 5 * np.ones(10)}

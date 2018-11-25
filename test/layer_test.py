@@ -4,17 +4,6 @@ import numpy as np
 import pytest
 
 
-def test_layer():
-
-    L = Layer()
-
-    with pytest.raises(NotImplementedError):
-        L.forward(np.ones(10))
-
-    with pytest.raises(NotImplementedError):
-        L.backward(np.ones(10))
-
-
 def test_linear_forward_1d():
 
     L = Linear(1, 1)
