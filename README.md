@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d98312b3e28d437eb0f233149f76b0ce)](https://app.codacy.com/app/RMeli/pynn?utm_source=github.com&utm_medium=referral&utm_content=RMeli/pynn&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/RMeli/pynn.svg?branch=master)](https://travis-ci.org/RMeli/pynn)
 [![codecov](https://codecov.io/gh/RMeli/pynn/branch/master/graph/badge.svg)](https://codecov.io/gh/RMeli/pynn)
 
