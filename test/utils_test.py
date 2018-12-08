@@ -1,4 +1,13 @@
-from pynn.utils import size, tanh, tanh_derivative, softplus, sigmoid
+from pynn.utils import (
+    size,
+    tanh,
+    tanh_derivative,
+    softplus,
+    sigmoid,
+    relu,
+    relu_derivative,
+)
+from pynn.tensor import Tensor
 
 import numpy as np
 import pytest
@@ -57,3 +66,29 @@ def test_sigmoid():
     assert sigmoid(0) == pytest.approx(0.5)
     assert sigmoid(-100) == pytest.approx(0)
     assert sigmoid(100) == pytest.approx(1)
+
+
+def test_relu():
+    assert relu(-100) == pytest.approx(0)
+    assert relu(-10) == pytest.approx(0)
+    assert relu(-1) == pytest.approx(0)
+    assert relu(0) == pytest.approx(0)
+    assert relu(1) == pytest.approx(1)
+    assert relu(10) == pytest.approx(10)
+    assert relu(100) == pytest.approx(100)
+
+    assert np.allclose(relu(np.array([-1, 0, 1, 10])), np.array([0, 0, 1, 10]))
+
+
+def test_relu_derivative():
+    assert relu_derivative(-100) == pytest.approx(0)
+    assert relu_derivative(-10) == pytest.approx(0)
+    assert relu_derivative(-1) == pytest.approx(0)
+    assert relu_derivative(0) == pytest.approx(0)
+    assert relu_derivative(1) == pytest.approx(1)
+    assert relu_derivative(10) == pytest.approx(1)
+    assert relu_derivative(100) == pytest.approx(1)
+
+    assert np.allclose(
+        relu_derivative(np.array([-1, 0, 1, 10])), np.array([0, 0, 1, 1])
+    )

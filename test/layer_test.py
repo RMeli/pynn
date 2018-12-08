@@ -1,7 +1,7 @@
-from pynn.layer import Layer, Linear, Activation, Tanh
+from pynn.layer import Layer, Linear, Activation, Tanh, ReLU
+from pynn.utils import relu
 
 import numpy as np
-import pytest
 
 
 def test_linear_forward_1d():
@@ -97,3 +97,31 @@ def test_tanh_repr():
     A = Tanh()
 
     assert repr(A) == "Tanh()"
+
+
+def test_relu_forward():
+    A = ReLU()
+
+    x = np.linspace(-10, 10, 100)
+    y = relu(x)
+
+    assert np.allclose(A.forward(x), y)
+
+
+def test_relu_backward():
+    A = ReLU()
+
+    x = np.linspace(-10, 10, 100)
+    dy = 1.0 * (x > 0)
+    grad = np.ones(x.size)
+
+    # The forward pass is needed to store the inputs used by the backward pass
+    A.forward(x)
+
+    assert np.allclose(A.backward(grad), dy)
+
+
+def test_relu_repr():
+    A = ReLU()
+
+    assert repr(A) == "ReLU()"

@@ -8,7 +8,7 @@ the gradients backward (backward pass).
 """
 
 from pynn.tensor import Tensor
-from pynn.utils import tanh, tanh_derivative, softplus, sigmoid
+from pynn.utils import tanh, tanh_derivative, softplus, sigmoid, relu, relu_derivative
 
 from abc import ABC, abstractmethod
 from typing import Dict, Callable
@@ -133,3 +133,15 @@ class SoftPlus(Activation):
 
     def __init__(self):
         super().__init__(softplus, sigmoid)
+
+
+class ReLU(Activation):
+    """
+    ReLU activation function.
+
+    Propagate the inputs forward via a rectified linear unit (ReLU):
+        outputs = ReLU(inputs) = 0 if inputs < 0 else inputs
+    """
+
+    def __init__(self):
+        super().__init__(relu, relu_derivative)
