@@ -48,5 +48,6 @@ class MSE(Loss):
         return np.sum((predicted - target) ** 2) / n
 
     def grad(self, predicted: Tensor, target: Tensor) -> float:
+        n = size(predicted, target)
 
-        return 2 * (predicted - target)
+        return 2 * (predicted - target) / n

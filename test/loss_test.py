@@ -23,4 +23,4 @@ def test_mse_grad(n: int = 10):
 
     g = L.grad(p, e)
 
-    assert np.allclose(g, 2 * np.ones(n))
+    assert np.allclose(g, 2 * np.ones(n) / n)
