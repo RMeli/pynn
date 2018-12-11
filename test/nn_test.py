@@ -351,3 +351,251 @@ def test_linear_tanh_linear():
 
     t = np.array([-0.3631246984, 0.0189487934]).transpose()
     assert np.allclose(nn.layers[2].grads["b"], t)
+
+
+def test_linear_relu_linear():
+    """
+    import torch
+    import torch.nn as nn
+
+    torch.manual_seed(1234)
+    torch.set_printoptions(precision=10)
+
+    net = nn.Sequential(
+        nn.Linear(10, 5),
+        nn.ReLU(),
+        nn.Linear(5,2),
+    )
+
+    x = torch.rand(10)
+    print(f"x = {x}")
+
+    y = net(x)
+    print(f"y = {y}")
+
+    print(f"net[0].weight = {net[0].weight.data}")
+    print(f"net[0].bias = {net[0].bias.data}")
+    print(f"net[2].weight = {net[2].weight.data}")
+    print(f"net[2].bias = {net[2].bias.data}")
+
+    L = nn.MSELoss()
+
+    loss = L(y, torch.tensor([0.123, 0.234]))
+    print(loss.item())
+
+    loss.backward()
+
+    print(f"net[0].weight.grad = {net[0].weight.grad}")
+    print(f"net[0].bias.grad = {net[0].bias.grad}")
+    print(f"net[2].weight.grad = {net[2].weight.grad}")
+    print(f"net[2].bias.grad = {net[2].bias.grad}")
+    """
+
+    # Define neural network
+    nn: NeuralNetwork = NeuralNetwork([Linear(10, 5), ReLU(), Linear(5, 2)])
+
+    # Define weight for first linear layer
+    nn.layers[0].params["w"] = np.array(
+        [
+            [
+                -0.2978996933,
+                -0.0620447993,
+                -0.1518878788,
+                -0.0843434185,
+                -0.2793551385,
+                0.1268988550,
+                -0.2834682167,
+                -0.0201505125,
+                0.1099246442,
+                -0.1065928042,
+            ],
+            [
+                0.1794327199,
+                0.0398846865,
+                0.1738307178,
+                0.2028933465,
+                -0.1395977736,
+                0.1149241626,
+                -0.1368159652,
+                0.0991250277,
+                -0.1652253270,
+                0.1462771595,
+            ],
+            [
+                0.0640188158,
+                -0.1237535626,
+                -0.1551083475,
+                0.0818156302,
+                0.2950474918,
+                0.1517572105,
+                -0.0305362642,
+                -0.0153491795,
+                0.1797402799,
+                -0.2197806835,
+            ],
+            [
+                0.1051295400,
+                -0.1047832966,
+                0.1829633415,
+                -0.1128049493,
+                0.0156366825,
+                0.1067842245,
+                0.2173210084,
+                -0.0464802384,
+                0.2884919941,
+                -0.2675432563,
+            ],
+            [
+                -0.0564081371,
+                -0.3153346777,
+                0.0261963010,
+                0.0897391737,
+                -0.1280111223,
+                0.1313367486,
+                -0.0512633622,
+                -0.2747980654,
+                0.2427785099,
+                0.1949744523,
+            ],
+        ]
+    ).transpose()
+
+    # Define bias for first linear layer
+    nn.layers[0].params["b"] = np.array(
+        [0.1598871946, 0.2522428930, 0.1162832677, 0.1681351364, 0.2624163330]
+    )
+
+    # Define weight for second linear layer
+    nn.layers[2].params["w"] = np.array(
+        [
+            [-0.0901057720, -0.3487843573, -0.2199362069, -0.0596988499, -0.0491428077],
+            [-0.0030310154, 0.2562854886, 0.1434621215, -0.3306660652, -0.1343453825],
+        ]
+    ).transpose()
+
+    # Define bias for second
+    nn.layers[2].params["b"] = np.array([-0.1052068472, 0.2721802592])
+
+    # Input (batch_size=1)
+    x: Tensor = np.array(
+        [
+            [
+                0.3186104298,
+                0.2908077240,
+                0.4196097851,
+                0.3728144765,
+                0.3768919110,
+                0.0107794404,
+                0.9454936385,
+                0.7661116719,
+                0.2634066939,
+                0.1880336404,
+            ]
+        ]
+    )
+
+    # Compute prediction
+    y = nn(x)
+
+    # Check prediction value
+    assert np.allclose(y, [-0.2829869390, 0.2472075522])
+
+    # Loss function
+    L = MSE()
+
+    # Check loss value
+    assert L.loss(y, np.array([0.123, 0.234])) == pytest.approx(0.0824999138712883)
+
+    # Compute loss gradient
+    grad = L.grad(y, np.array([0.123, 0.234]))
+
+    # Check there are no gradients before backpropagation
+    assert nn.layers[0].grads.get("w", None) is None
+    assert nn.layers[0].grads.get("b", None) is None
+    assert nn.layers[2].grads.get("w", None) is None
+    assert nn.layers[2].grads.get("b", None) is None
+
+    # Backpropagation
+    nn.backward(grad)
+
+    t = np.array(
+        [
+            [
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+            ],
+            [
+                0.0461943038,
+                0.0421632789,
+                0.0608378761,
+                0.0540531762,
+                0.0546443500,
+                0.0015628765,
+                0.1370840967,
+                0.1110760719,
+                0.0381904915,
+                0.0272623952,
+            ],
+            [
+                0.0290528163,
+                0.0265175980,
+                0.0382625461,
+                0.0339954682,
+                0.0343672708,
+                0.0009829343,
+                0.0862158015,
+                0.0698586702,
+                0.0240190066,
+                0.0171460379,
+            ],
+            [
+                0.0063306820,
+                0.0057782512,
+                0.0083375052,
+                0.0074076978,
+                0.0074887150,
+                0.0002141838,
+                0.0187866390,
+                0.0152223809,
+                0.0052338024,
+                0.0037361651,
+            ],
+            [
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+                0.0000000000,
+            ],
+        ]
+    ).transpose()
+    assert np.allclose(nn.layers[0].grads["w"], t)
+
+    t = np.array(
+        [0.0000000000, 0.1449867934, 0.0911860168, 0.0198696628, 0.0000000000]
+    ).transpose()
+    assert np.allclose(nn.layers[0].grads["b"], t)
+
+    t = np.array(
+        [
+            [-0.0000000000, -0.1416020691, -0.0585974716, -0.1658339649, -0.0000000000],
+            [0.0000000000, 0.0046065943, 0.0019062912, 0.0053949058, 0.0000000000],
+        ]
+    ).transpose()
+    assert np.allclose(nn.layers[2].grads["w"], t)
+
+    t = np.array([-0.4059869349, 0.0132075548]).transpose()
+    assert np.allclose(nn.layers[2].grads["b"], t)
