@@ -1,4 +1,4 @@
-from pynn.layer import Layer, Linear, Activation, Tanh, ReLU
+from pynn.layer import Linear, Activation, Tanh, ReLU
 from pynn.utils import relu
 
 import numpy as np

@@ -1,4 +1,4 @@
-from pynn.loss import Loss, MSE
+from pynn.loss import MSE
 
 import numpy as np
 import pytest

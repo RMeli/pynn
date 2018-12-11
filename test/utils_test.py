@@ -7,7 +7,6 @@ from pynn.utils import (
     relu,
     relu_derivative,
 )
-from pynn.tensor import Tensor
 
 import numpy as np
 import pytest

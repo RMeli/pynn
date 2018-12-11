@@ -1,10 +1,9 @@
-from pynn.optim import Optimizer, SGD
+from pynn.optim import SGD
 
 from pynn.layer import Linear
 from pynn.nn import NeuralNetwork
 
 import numpy as np
-import pytest
 
 
 def test_SGD_step():
